@@ -13,18 +13,13 @@
         "media": [
             {
                 "file": "fonts/comic.ttf",
-                "name": "FONT_COMICSANS_20",
+                "name": "FONT_COMICSANS_16",
                 "type": "font"
             },
             {
                 "file": "fonts/comic.ttf",
-                "name": "FONT_COMICSANS_48",
+                "name": "FONT_COMICSANS_14",
                 "type": "font"
-            },
-            {
-                "file": "images/background.png",
-                "name": "IMAGE_BACKGROUND",
-                "type": "png"
             }
         ]
     },

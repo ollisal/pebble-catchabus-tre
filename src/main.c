@@ -1,5 +1,6 @@
 #include <pebble.h>
 
+#include "common.h"
 #include "view.h"
   
 #define KEY_TEMPERATURE 0
@@ -32,8 +33,8 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 
 static void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   // Store incoming information
-  static int temperature = 0;
-  static char conditions[32] = { 0 };
+  //static int temperature = 0;
+  //static char conditions[32] = { 0 };
 
   // Read first item
   Tuple *t = dict_read_first(iterator);
@@ -43,10 +44,10 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     // Which key was received?
     switch(t->key) {
     case KEY_TEMPERATURE:
-      temperature = (int) t->value->int32;
+      //temperature = (int) t->value->int32;
       break;
     case KEY_CONDITIONS:
-      snprintf(conditions, sizeof(conditions), "%s", t->value->cstring);
+      //snprintf(conditions, sizeof(conditions), "%s", t->value->cstring);
       break;
     default:
       APP_LOG(APP_LOG_LEVEL_ERROR, "Key %d not recognized!", (int)t->key);
@@ -57,7 +58,12 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     t = dict_read_next(iterator);
   }
   
-  view_show_weather(temperature, conditions);
+  // TODO get bus info from phone
+  static Bus s_buses[] = {
+    { 13, "Ylöjärvi Matkatie", 8, 25},
+    { 20, "Pyynikintori", 3, 32}
+  };
+  view_show_buses("Hermiankatu 7", s_buses, 2);
 }
 
 static void inbox_dropped_callback(AppMessageResult reason, void *context) {
