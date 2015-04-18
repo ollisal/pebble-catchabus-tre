@@ -1,0 +1,23 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        "location"
+    ],
+    "companyName": "Olli Salli",
+    "longName": "pebble-catchabus-tre",
+    "projectType": "native",
+    "resources": {
+        "media": []
+    },
+    "sdkVersion": "3",
+    "shortName": "catchabus",
+    "targetPlatforms": [
+        "aplite"
+    ],
+    "uuid": "55ea892c-c9f1-4707-a09f-5a9b68b82fee",
+    "versionCode": 1,
+    "versionLabel": "0.1",
+    "watchapp": {
+        "watchface": true
+    }
+}
