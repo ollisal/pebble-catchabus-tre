@@ -8,9 +8,9 @@ var xhrRequest = function (url, type, callback) {
 };
 
 function locationSuccess(pos) {
-  //var url = 'http://192.168.1.15:16000/?lon=23.773009&lat=61.498434'; // Rautatieasema
-  //var url = 'http://192.168.1.15:16000/?lon=23.8498138&lat=61.4514546'; // Kapina
-  var url = 'http://192.168.1.15:16000/?lat=' + pos.coords.latitude + '&lon=' + pos.coords.longitude; // Real
+  //var url = 'http://ec2-54-194-210-241.eu-west-1.compute.amazonaws.com:16000/?lon=23.773009&lat=61.498434'; // Rautatieasema
+  //var url = 'http://ec2-54-194-210-241.eu-west-1.compute.amazonaws.com:16000/?lon=23.8498138&lat=61.4514546'; // Kapina
+  var url = 'http://ec2-54-194-210-241.eu-west-1.compute.amazonaws.com:16000/?lat=' + pos.coords.latitude + '&lon=' + pos.coords.longitude; // Real
   
   xhrRequest(url, 'GET',
     function(responseText) {
