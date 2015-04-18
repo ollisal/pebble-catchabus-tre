@@ -7,7 +7,18 @@
     "longName": "pebble-catchabus-tre",
     "projectType": "native",
     "resources": {
-        "media": []
+        "media": [
+            {
+                "file": "fonts/comic.ttf",
+                "name": "FONT_COMICSANS_48",
+                "type": "font"
+            },
+            {
+                "file": "images/background.png",
+                "name": "IMAGE_BACKGROUND",
+                "type": "png"
+            }
+        ]
     },
     "sdkVersion": "3",
     "shortName": "catchabus",
