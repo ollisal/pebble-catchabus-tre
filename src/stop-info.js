@@ -8,32 +8,44 @@ var xhrRequest = function (url, type, callback) {
 };
 
 function locationSuccess(pos) {
-  var stopName = "Hermiankatu 7";
+  //var url = 'http://192.168.1.15:16000/?lon=23.773009&lat=61.498434'; // Rautatieasema
+  //var url = 'http://192.168.1.15:16000/?lon=23.8498138&lat=61.4514546'; // Kapina
+  var url = 'http://192.168.1.15:16000/?lat=' + pos.coords.latitude + '&lon=' + pos.coords.longitude; // Real
   
-  var buses = [
-    { id: 13, dest: 'Alajärvi matkatie', min1: 88, min2: 25 },
-    { id: 20, dest: 'Pöönikintori', min1: 13, min2: 32 }
-  ];
-
-  //"13,Ylöjärvi Matkatie,8,25\n20,Pyynikintori,3,32\n";
-  var csvBuses = buses.map(function (bus) {
-    return bus.id + ',' + bus.dest.substr(0, 64) + ',' + bus.min1 + ',' + bus.min2 + '\n';
-  }).join('');
-  
-  // Assemble dictionary using our keys
-  var dictionary = {
-    'KEY_STOP_NAME': stopName,
-    'KEY_BUSES': csvBuses
-  };
-
-  // Send to Pebble
-  Pebble.sendAppMessage(dictionary,
-    function(e) {
-      console.log('Stop info sent to Pebble successfully!');
-    },
-    function(e) {
-      console.log('Error sending stop info to Pebble!');
-    }
+  xhrRequest(url, 'GET',
+    function(responseText) {
+      // responseText contains a JSON object with bus stop info
+      var stops = JSON.parse(responseText);
+      
+      if (stops.length === 0) {
+        console.log('No stops in range!');
+        return;
+      }
+      
+      var closestStop = stops[0];
+      console.log('Closest stop is', closestStop.name, ',', closestStop.dist, 'meters away, with', closestStop.buses.length, 'buses departing');
+    
+      //"13,Ylöjärvi Matkatie,8,25\n20,Pyynikintori,3,32\n";
+      var csvBuses = closestStop.buses.slice(0, 8).map(function (bus) {
+        return bus.id + ',' + bus.dest.substr(0, 64) + ',' + bus.min1 + ',' + bus.min2 + '\n';
+      }).join('');
+      
+      // Assemble dictionary using our keys
+      var dictionary = {
+        'KEY_STOP_NAME': closestStop.name,
+        'KEY_BUSES': csvBuses
+      };
+    
+      // Send to Pebble
+      Pebble.sendAppMessage(dictionary,
+        function(e) {
+          console.log('Stop info sent to Pebble successfully!');
+        },
+        function(e) {
+          console.log('Error sending stop info to Pebble!');
+        }
+      );
+    }      
   );
 }
 
