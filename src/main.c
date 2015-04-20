@@ -17,12 +17,6 @@ static void update_time() {
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
   // Update time
   update_time();
-
-  // Trigger bus update
-  DictionaryIterator *iter;
-  app_message_outbox_begin(&iter);
-  dict_write_uint8(iter, 0, 0);
-  app_message_outbox_send();
 }
 
 static void inbox_received_callback(DictionaryIterator *iterator, void *context) {

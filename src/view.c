@@ -7,7 +7,7 @@
 
 #define LINE_HEIGHT (16)
   
-#define COL1_WIDTH (106)
+#define COL1_WIDTH (104)
 #define COL2_WIDTH (SCREEN_WIDTH - COL1_WIDTH)
   
 static Window *s_main_window = NULL;
